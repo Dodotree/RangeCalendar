@@ -48,8 +48,8 @@ var RangeCalendarUI2 = {
         setDateRangeInput: function(range){
             var inp_start = range.pa.siblings(".search-date-from");
             var inp_end = range.pa.siblings(".search-date-to");
-            inp_start.val( range.from.format('Y-MM-DD HH:mm:ss'));
-            inp_end.val( range.to.format('Y-MM-DD HH:mm:ss'));
+            inp_start.val( range.from.clone().utc().format('Y-MM-DD HH:mm:ss'));
+            inp_end.val( range.to.clone().utc().format('Y-MM-DD HH:mm:ss'));
         },
         dateSearch: function(e){
             e.preventDefault();
