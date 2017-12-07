@@ -1,4 +1,8 @@
 /* requires jquery and moment.js */
+define([
+  'jquery',
+  'moment'
+], function ($, moment) {
 
     var RangeCalendar = function(config) {
         this.init.call(this, config);
@@ -289,4 +293,6 @@
 
     };
 
+  return RangeCalendar;
 
+});

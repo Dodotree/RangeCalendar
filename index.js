@@ -31,3 +31,38 @@ console.log(range.from.format('Y-MM-DD HH:mm:ss'), range.to.format('Y-MM-DD HH:m
 
 };
 
+
+var RangeCalendarUI2 = {
+
+        initSearchDatetimeInput: function(point, callback){
+            var node = $('<div class="btn-group search-date-range-ddn">'
+                + '<input class="search-date-from" value="" type="hidden">'
+                + '<input class="search-date-to" value=""   type="hidden">'
+                + '<span class="range-calendar-holder"></span>'
+                + '<a href="#" class="btn suffix search-date-range-btn"><i class="icon-magnifier"></i></a>'
+            + '</div>').appendTo(point);
+            var pa = node.find(".range-calendar-holder");
+            new RangeCalendar({'pa': pa, 'callback': callback });
+            $('.search-date-range-btn').off('click').on('click', RangeCalendarUI2.dateSearch);
+        },
+        setDateRangeInput: function(range){
+            var inp_start = range.pa.siblings(".search-date-from");
+            var inp_end = range.pa.siblings(".search-date-to");
+            inp_start.val( range.from.format('Y-MM-DD HH:mm:ss'));
+            inp_end.val( range.to.format('Y-MM-DD HH:mm:ss'));
+        },
+        dateSearch: function(e){
+            e.preventDefault();
+            var timeFrom = $('.search-date-from').val();
+            var timeTo =   $('.search-date-to').val();
+            if( 'Invalid date' == timeFrom || 'Invalid date' == timeTo ){
+                console.log('danger', 'Enter valid dates');
+                return;
+            }
+            window.location = '?searchDateFrom=' + timeFrom + '&searchDateTo=' + timeTo;
+        },
+        
+        init: function(){
+            RangeCalendarUI2.initSearchDatetimeInput( $('.wall-view-subpanel'), Wall.setDateRangeInput );
+        }
+};
